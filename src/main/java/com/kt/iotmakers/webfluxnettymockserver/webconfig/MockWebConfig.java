@@ -21,7 +21,9 @@ public class MockWebConfig implements WebFluxConfigurer {
     RouterFunction<ServerResponse> routerFunction() {
         return RouterFunctions.route()
                 .path("/mock", builder -> builder
-                                .POST("/start", mockHandler::startMockServer)
+                        .GET("", mockHandler::retrieveMockServers)
+                        .POST("/start/{port}", mockHandler::startMockServer)
+                        .POST("/stop/{port}", mockHandler::stopMockServer)
                 )
                 .build();
     }
